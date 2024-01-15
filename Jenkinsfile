@@ -4,7 +4,7 @@ pipeline {
         stage ('build') {
             steps {
                 echo "Build App"
-                echo "Test Trigger"
+                echo "Test Triggers"
                 sleep (5)
             }
         }
