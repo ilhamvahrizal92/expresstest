@@ -1,15 +1,18 @@
 pipeline {
     agent any
     stages {
-        stage ('build') {
+        stage ('Build and Dockerize') {
             agent {
                 docker {
                     image 'node:14'
                 }
             }
             steps {
-                echo "Build Nodejs"
-                sh ' docker build -t ilhamv/demo-node-app:latest .'
+                echo "Installing Node.js dependencies"
+                sh 'npm install'
+
+                echo "Building Docker image"
+                sh 'docker build -t nodejs-demo:1 .'
             }
         }
     }
