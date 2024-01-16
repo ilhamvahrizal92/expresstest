@@ -30,4 +30,10 @@ pipeline {
             }
         }
     }
+    post {
+        always {
+            echo "always"
+            discordSend description: "Deployment is Done", footer: "Application running on ip:3000", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL:"https://discord.com/api/webhooks/1194213985571057675/drGm9PN8WX6rCclGDXw48qJhO6HUl3iwD-k1pkbOfNup_QAAy7DbcrtVtvTUqDp9dDNV"
+        }
+    }
 }
