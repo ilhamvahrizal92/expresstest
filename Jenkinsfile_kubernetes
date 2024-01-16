@@ -20,7 +20,7 @@ pipeline {
             steps {
                 echo "Build App"
                 echo "Connect server DB"
-                sh 'ssh -o StrictHostKeyChecking=no -i $SSH_KEY ilhamv@34.128.110.159 whoami'
+                sh 'ssh -o StrictHostKeyChecking=no -i $SSH_KEY ilhamv@34.128.110.159 docker run -p 3000:3000 -d ilhamv/demo-node-app:latest'
             }
         }
     }
