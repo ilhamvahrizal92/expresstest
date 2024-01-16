@@ -12,7 +12,8 @@ pipeline {
         stage('Run Application') {
             steps {
                 // Run your Node.js application
-                sh 'npm run start'
+                sh 'npm install -g forever'
+                sh 'forever start -c "npm start" .'
             }
         }
     }
@@ -20,7 +21,7 @@ pipeline {
     post {
         always {
             echo "always"
-            discordSend description: "jenkins pipeline running", footer: "gagal maning", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL:"https://discord.com/api/webhooks/1194213985571057675/drGm9PN8WX6rCclGDXw48qJhO6HUl3iwD-k1pkbOfNup_QAAy7DbcrtVtvTUqDp9dDNV"
+            discordSend description: "jenkins pipeline running", footer: "notification aja", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL:"https://discord.com/api/webhooks/1194213985571057675/drGm9PN8WX6rCclGDXw48qJhO6HUl3iwD-k1pkbOfNup_QAAy7DbcrtVtvTUqDp9dDNV"
         }
     }
 }
