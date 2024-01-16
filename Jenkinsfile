@@ -12,8 +12,7 @@ pipeline {
         stage('Run Application') {
             steps {
                 // Run your Node.js application
-                sh 'npm install -g forever'
-                sh 'forever start -c "npm start" .'
+                sh 'npm run start'
             }
         }
     }
