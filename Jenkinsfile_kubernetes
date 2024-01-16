@@ -2,10 +2,14 @@ pipeline {
     agent any
     stages {
         stage ('build') {
+            agent {
+                docker {
+                    image 'node:14'
+                }
+            }
             steps {
-                echo "Build App"
-                echo "Test Triggers lagi"
-                sleep (5)
+                echo "Build Nodejs"
+                sh 'docker build -t nodejs-demo:1 .'
             }
         }
     }
