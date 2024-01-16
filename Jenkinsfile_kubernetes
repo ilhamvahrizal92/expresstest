@@ -1,3 +1,19 @@
+pipeline {
+    agent any
+    environment {
+        SSH_KEY = credentials('GCP_SSH')
+    }
+    stages {
+        stage ('Remove Images') {
+            steps {
+                echo "Build App"
+                sh 'ssh -o StrictHostKeyChecking=no -i $SSH_KEY ilhamv@34.128.110.159 pwd'
+                sh 'ssh -o StrictHostKeyChecking=no -i $SSH_KEY ilhamv@34.128.110.159 ./rmv.sh'
+            }
+        }
+    }
+}
+
 node {
 
     checkout scm
@@ -19,8 +35,6 @@ pipeline {
         stage ('build') {
             steps {
                 echo "Build App"
-                sh 'ssh -o StrictHostKeyChecking=no -i $SSH_KEY ilhamv@34.128.110.159 pwd'
-                sh 'ssh -o StrictHostKeyChecking=no -i $SSH_KEY ilhamv@34.128.110.159 docker rm -vf $(docker ps -aq)'
                 sh 'ssh -o StrictHostKeyChecking=no -i $SSH_KEY ilhamv@34.128.110.159 docker rmi -f $(docker images -aq)'
                 sh 'ssh -o StrictHostKeyChecking=no -i $SSH_KEY ilhamv@34.128.110.159 docker run -p 3000:3000 -d ilhamv/demo-node-app:latest'
             }
