@@ -8,7 +8,7 @@ pipeline {
             steps {
                 echo "Build App"
                 sh 'ssh -o StrictHostKeyChecking=no -i $SSH_KEY ilhamv@34.128.110.159 pwd'
-                sh 'ssh -o StrictHostKeyChecking=no -i $SSH_KEY ilhamv@34.128.110.159 ./rmv.sh'
+                sh 'ssh -o StrictHostKeyChecking=no -i $SSH_KEY ilhamv@34.128.110.159 ./ rmv.sh'
             }
         }
     }
