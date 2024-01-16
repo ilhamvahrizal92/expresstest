@@ -1,16 +1,12 @@
-pipeline {
-    agent any
-    stages {
-        stage ('build') {
-            agent {
-                docker {
-                    image 'node:14'
-                }
-            }
-            steps {
-                echo "Build Nodejs"
-                sh 'node --version'
-            }
-        }
+node {
+
+    checkout scm
+
+    docker.withRegistry('https://registry.hub.docker.com', 'DOCKER_HUB') {
+
+        def customImage = docker.build("ilhamv/dockerwebapp")
+
+        /* Push the container to the custom Registry */
+        customImage.push()
     }
 }
