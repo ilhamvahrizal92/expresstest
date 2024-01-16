@@ -9,7 +9,7 @@ pipeline {
             }
             steps {
                 echo "Build Nodejs"
-                sh 'docker build -t nodejs-demo:1 .'
+                sh ' docker build -t ilhamv/demo-node-app:latest .'
             }
         }
     }
