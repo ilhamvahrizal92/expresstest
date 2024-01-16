@@ -1,15 +1,26 @@
+node {
+
+    checkout scm
+
+    docker.withRegistry('https://registry.hub.docker.com', 'DOCKER_HUB') {
+
+        def customImage = docker.build('ilhamv/dockerwebapp')
+
+        /* Push the container to the custom Registry */
+        customImage.push()
+    }
+}
 pipeline {
     agent any
+    environment {
+        SSH_KEY = credentials('GCP_SSH')
+    }
     stages {
         stage ('build') {
             steps {
-                docker.withRegistry('https://registry.hub.docker.com', 'DOCKER_HUB') {
-                    def customImage = docker.build('ilhamv/dockerwebapp')
-                    customImage.push()
-                }
                 echo "Build App"
-                echo "$BUILD_NUMBER"
-                sleep (5)
+                echo "Connect server DB"
+                sh 'ssh -o StrictHostKeyChecking=no -i $SSH_KEY ilhamv@34.128.110.159 whoami'
             }
         }
     }
