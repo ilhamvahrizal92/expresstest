@@ -9,7 +9,15 @@ pipeline {
             }
             steps {
                 echo "Installing Node.js dependencies"
-                sh 'npm install'
+                script {
+                    // Set npm prefix to a directory where the Jenkins user has write permissions
+                    sh 'npm config set prefix "$HOME/.npm-global"'
+                    sh 'export PATH="$HOME/.npm-global/bin:$PATH"'
+                    sh 'mkdir -p "$HOME/.npm-global"'
+
+                    // Install npm dependencies
+                    sh 'npm install'
+                }
 
                 echo "Building Docker image"
                 sh 'docker build -t nodejs-demo:1 .'
